@@ -12,4 +12,3 @@ public class ProjetospringApplication {
 	}
 
 }
-git push -u origin main
