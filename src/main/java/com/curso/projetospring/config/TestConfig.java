@@ -2,6 +2,7 @@ package com.curso.projetospring.config;
 
 import com.curso.projetospring.entities.Pedido;
 import com.curso.projetospring.entities.Usuario;
+import com.curso.projetospring.entities.ennums.StatusPedido;
 import com.curso.projetospring.repositories.PedidoRepository;
 import com.curso.projetospring.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +32,9 @@ public class TestConfig implements CommandLineRunner {
 
         usuarioRepository.saveAll(Arrays.asList(u1, u2)); //saveAll -> salva uma lista de objetos
 
-        Pedido o1 = new Pedido(null, Instant.parse("2019-06-20T19:53:07Z"), u1);
-        Pedido o2 = new Pedido(null, Instant.parse("2019-07-21T03:42:10Z"), u2);
-        Pedido o3 = new Pedido(null, Instant.parse("2019-07-22T15:21:22Z"), u1);
+        Pedido o1 = new Pedido(null, Instant.parse("2019-06-20T19:53:07Z"), StatusPedido.PAGO ,u1);
+        Pedido o2 = new Pedido(null, Instant.parse("2019-07-21T03:42:10Z"), StatusPedido.AGUARDANDO_PAGAMENTO ,u2);
+        Pedido o3 = new Pedido(null, Instant.parse("2019-07-22T15:21:22Z"), StatusPedido.AGUARDANDO_PAGAMENTO,u1);
 
         pedidoRepository.saveAll(Arrays.asList(o1, o2, o3));
 

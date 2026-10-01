@@ -1,16 +1,13 @@
 package com.curso.projetospring.resources;
 
 import com.curso.projetospring.entities.Pedido;
-import com.curso.projetospring.entities.Usuario;
 import com.curso.projetospring.services.PedidoServices;
-import com.curso.projetospring.services.UsuarioServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.List;
 
 @RestController

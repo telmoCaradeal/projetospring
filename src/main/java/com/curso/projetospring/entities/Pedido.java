@@ -1,5 +1,6 @@
 package com.curso.projetospring.entities;
 
+import com.curso.projetospring.entities.ennums.StatusPedido;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
@@ -25,13 +26,28 @@ public class Pedido implements Serializable {
     @JoinColumn(name="usuarioId")
     private Usuario usuarioCliente;
 
+    //Associação de classe
+    private Integer status;
+
     public  Pedido() {
     }
 
-    public Pedido(Long id, Instant instante, Usuario usuarioCliente) {
+    public Pedido(Long id, Instant instante, StatusPedido status,Usuario usuarioCliente) {
         this.id = id;
         this.instante = instante;
+        setStatus(status);
         this.usuarioCliente = usuarioCliente;
+    }
+
+    public StatusPedido getStatus() {
+        return StatusPedido.valueOf(status);
+    }
+
+    public void setStatus(StatusPedido status) {
+        if(status!=null){
+            this.status = status.getCodigo();
+        }
+
     }
 
     public Long getId() {
