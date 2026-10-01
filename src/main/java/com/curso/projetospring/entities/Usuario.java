@@ -1,8 +1,11 @@
 package com.curso.projetospring.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -19,6 +22,13 @@ public class Usuario implements Serializable {
     private String email;
     private String fone;
     private String senha;
+
+
+
+    //Associação de classes
+    @JsonIgnore
+    @OneToMany(mappedBy = "usuarioCliente")
+    private List<Pedido> pedidos = new ArrayList<>();
 
     public Usuario() {
     }
@@ -83,5 +93,8 @@ public class Usuario implements Serializable {
         return Objects.hashCode(id);
     }
 
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
 
 }
