@@ -21,10 +21,10 @@ public class Pedido implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
     private Instant instante;
 
-    //Associação de classe
+
     @ManyToOne
     @JoinColumn(name="usuarioId")
-    private Usuario usuarioCliente;
+    private Usuario usuarioCliente; //Associação de classe
 
     //Associação de classe
     private Integer status;
@@ -40,6 +40,7 @@ public class Pedido implements Serializable {
     }
 
     public StatusPedido getStatus() {
+
         return StatusPedido.valueOf(status);
     }
 
@@ -71,6 +72,7 @@ public class Pedido implements Serializable {
     }
 
     public void setUsuarioCliente(Usuario usuarioCliente) {
+
         this.usuarioCliente = usuarioCliente;
     }
 

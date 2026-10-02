@@ -11,10 +11,12 @@ public enum StatusPedido {
     private int codigo;
 
     private StatusPedido(int codigo) {
+
         this.codigo = codigo;
     }
 
     public int getCodigo() {
+
         return codigo;
     }
 

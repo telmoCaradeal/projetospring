@@ -1,9 +1,11 @@
 package com.curso.projetospring.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "categoria")
@@ -16,7 +18,10 @@ public class Categoria implements Serializable {
     private Long id;
     private String nome;
 
-    //Associação com a classe de produto
+
+    @ManyToMany(mappedBy = "categorias")
+    @JsonIgnore
+    private Set<Produto> produtos = new HashSet<>();//Associação com a classe de produto
 
 
     public Categoria() {}
@@ -42,6 +47,10 @@ public class Categoria implements Serializable {
         this.nome = nome;
     }
 
+    public Set<Produto> getProdutos() {
+        return produtos;
+    }
+
     @Override
     public String toString() {
         return "Categoria{" + "id=" + id + ", nome=" + nome + '}';
@@ -58,4 +67,6 @@ public class Categoria implements Serializable {
     public int hashCode() {
         return Objects.hashCode(id);
     }
+
+
 }

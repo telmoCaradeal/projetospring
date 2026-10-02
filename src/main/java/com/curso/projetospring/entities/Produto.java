@@ -3,7 +3,9 @@ package com.curso.projetospring.entities;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name= "produto")
@@ -19,17 +21,19 @@ public class Produto implements Serializable {
     private Double preco;
     private String imgUrl;
 
-    //Associação com a classe categoria
-    private Categoria categoria;
+    @ManyToMany
+    @JoinTable(name="produto_categoria",
+            joinColumns = @JoinColumn(name="produtoId"),
+            inverseJoinColumns = @JoinColumn(name="categoriaId"))
+    private Set<Categoria> categorias = new HashSet<>();
 
     public Produto(){};
 
-    public Produto(Long id, String nome, String descricao, Double preco, Categoria categoria ,String imgUrl) {
+    public Produto(Long id, String nome, String descricao, Double preco, String imgUrl) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
-        this.categoria = categoria;
         this.imgUrl = imgUrl;
     }
 
@@ -73,12 +77,8 @@ public class Produto implements Serializable {
         this.imgUrl = imgUrl;
     }
 
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
+    public Set<Categoria> getCategorias() {
+        return categorias;
     }
 
     @Override
@@ -92,4 +92,6 @@ public class Produto implements Serializable {
     public int hashCode() {
         return Objects.hashCode(id);
     }
+
+
 }
