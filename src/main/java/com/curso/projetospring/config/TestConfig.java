@@ -1,8 +1,10 @@
 package com.curso.projetospring.config;
 
+import com.curso.projetospring.entities.Categoria;
 import com.curso.projetospring.entities.Pedido;
 import com.curso.projetospring.entities.Usuario;
 import com.curso.projetospring.entities.ennums.StatusPedido;
+import com.curso.projetospring.repositories.CategoriaRepository;
 import com.curso.projetospring.repositories.PedidoRepository;
 import com.curso.projetospring.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,9 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private PedidoRepository pedidoRepository;
 
+    @Autowired
+    private CategoriaRepository categoriaRepository;
+
     @Override
     public void run(String... args) throws Exception {
 
@@ -37,6 +42,13 @@ public class TestConfig implements CommandLineRunner {
         Pedido o3 = new Pedido(null, Instant.parse("2019-07-22T15:21:22Z"), StatusPedido.AGUARDANDO_PAGAMENTO,u1);
 
         pedidoRepository.saveAll(Arrays.asList(o1, o2, o3));
+
+
+        Categoria cat1 = new Categoria(null, "Electronicos");
+        Categoria cat2 = new Categoria(null, "Livros");
+        Categoria cat3 = new Categoria(null, "Computadores");
+
+        categoriaRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
 
     }
 
