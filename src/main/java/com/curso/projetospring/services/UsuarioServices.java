@@ -14,22 +14,35 @@ public class UsuarioServices {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public List<Usuario> findAll(){
+    public List<Usuario> findAll() {
         return usuarioRepository.findAll();
 
     }
 
-    public Usuario findById(Long id){
+    public Usuario findById(Long id) {
         Optional<Usuario> usuario = usuarioRepository.findById(id);
         return usuario.get();
     }
 
-    public Usuario insertUsuario(Usuario incluir){
-        return usuarioRepository.save(incluir);
+    public Usuario insertUsuario(Usuario incluirUsuario) {
+        return usuarioRepository.save(incluirUsuario);
     }
 
-    public void deleteUsuario(Long id){
+    public void deleteUsuario(Long id) {
         usuarioRepository.deleteById(id);
     }
 
+    public Usuario updateUsuario(Long id, Usuario atualizarUsuario) {
+        Usuario entidade = usuarioRepository.getReferenceById(id);
+        updateData(entidade, atualizarUsuario);
+        return usuarioRepository.save(entidade);
+
+    }
+
+
+    private void updateData(Usuario entidade, Usuario atualizarUsuario) {
+        entidade.setNome(atualizarUsuario.getNome());
+        entidade.setEmail(atualizarUsuario.getEmail());
+        entidade.setFone(atualizarUsuario.getFone());
+    }
 }
