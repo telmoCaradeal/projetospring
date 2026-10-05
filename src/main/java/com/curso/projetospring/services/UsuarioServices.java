@@ -24,4 +24,12 @@ public class UsuarioServices {
         return usuario.get();
     }
 
+    public Usuario insertUsuario(Usuario incluir){
+        return usuarioRepository.save(incluir);
+    }
+
+    public void deleteUsuario(Long id){
+        usuarioRepository.deleteById(id);
+    }
+
 }
