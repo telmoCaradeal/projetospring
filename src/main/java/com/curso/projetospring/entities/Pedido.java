@@ -6,7 +6,9 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 
 @Entity
@@ -28,6 +30,9 @@ public class Pedido implements Serializable {
 
     //Associação de classe
     private Integer status;
+
+    @OneToMany(mappedBy = "id.pedido") //Associação de Um Pedido para Muitos Iten
+    private Set<ItemPedido> itens = new HashSet<>();
 
     public  Pedido() {
     }
@@ -74,6 +79,10 @@ public class Pedido implements Serializable {
     public void setUsuarioCliente(Usuario usuarioCliente) {
 
         this.usuarioCliente = usuarioCliente;
+    }
+
+    public Set<ItemPedido> getItens() {
+        return itens;
     }
 
     @Override
