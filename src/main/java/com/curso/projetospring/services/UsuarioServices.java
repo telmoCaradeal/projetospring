@@ -2,7 +2,11 @@ package com.curso.projetospring.services;
 
 import com.curso.projetospring.entities.Usuario;
 import com.curso.projetospring.repositories.UsuarioRepository;
+import com.curso.projetospring.services.exceptions.DatabaseException;
+import com.curso.projetospring.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,7 +25,7 @@ public class UsuarioServices {
 
     public Usuario findById(Long id) {
         Optional<Usuario> usuario = usuarioRepository.findById(id);
-        return usuario.get();
+        return usuario.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public Usuario insertUsuario(Usuario incluirUsuario) {
@@ -29,14 +33,28 @@ public class UsuarioServices {
     }
 
     public void deleteUsuario(Long id) {
-        usuarioRepository.deleteById(id);
+        try {
+            usuarioRepository.deleteById(id);
+        }catch (EmptyResultDataAccessException e){
+            throw new ResourceNotFoundException(id);
+        }catch (DataIntegrityViolationException e){
+            throw new DatabaseException(e.getMessage());
+        }
+
     }
 
     public Usuario updateUsuario(Long id, Usuario atualizarUsuario) {
-        Usuario entidade = usuarioRepository.getReferenceById(id);
-        updateData(entidade, atualizarUsuario);
-        return usuarioRepository.save(entidade);
+        try {
+            Usuario entidade = usuarioRepository.getReferenceById(id);
+            updateData(entidade, atualizarUsuario);
+            return usuarioRepository.save(entidade);
+        }catch (RuntimeException e){
+            //throw new ResourceNotFoundException(id);
+            e.printStackTrace();
+        }
 
+
+        return atualizarUsuario;
     }
 
 
