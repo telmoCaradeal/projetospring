@@ -34,6 +34,9 @@ public class Pedido implements Serializable {
     @OneToMany(mappedBy = "id.pedido") //Associação de Um Pedido para Muitos Iten
     private Set<ItemPedido> itens = new HashSet<>();
 
+    @OneToOne(mappedBy = "pedido", cascade = CascadeType.ALL)
+    private Pagamento pagamento;
+
     public  Pedido() {
     }
 
@@ -54,6 +57,14 @@ public class Pedido implements Serializable {
             this.status = status.getCodigo();
         }
 
+    }
+
+    public Pagamento getPagamento() {
+        return pagamento;
+    }
+
+    public void setPagamento(Pagamento pagamento) {
+        this.pagamento = pagamento;
     }
 
     public Long getId() {

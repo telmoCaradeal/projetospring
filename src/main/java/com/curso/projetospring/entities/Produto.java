@@ -1,5 +1,6 @@
 package com.curso.projetospring.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -26,6 +27,10 @@ public class Produto implements Serializable {
             joinColumns = @JoinColumn(name="produtoId"),
             inverseJoinColumns = @JoinColumn(name="categoriaId"))
     private Set<Categoria> categorias = new HashSet<>();
+
+
+    @OneToMany(mappedBy = "id.produto") //Associação de Um Pedido para Muitos Iten
+    private Set<ItemPedido> itens = new HashSet<>();
 
     public Produto(){};
 
@@ -79,6 +84,15 @@ public class Produto implements Serializable {
 
     public Set<Categoria> getCategorias() {
         return categorias;
+    }
+
+    @JsonIgnore
+    public Set<Pedido> getPedidos() {
+        Set<Pedido> pedidos = new HashSet<>();
+        for (ItemPedido item : itens) {
+            pedidos.add(item.getPedido());
+        }
+        return pedidos;
     }
 
     @Override
