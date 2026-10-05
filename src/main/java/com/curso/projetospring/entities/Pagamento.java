@@ -1,5 +1,6 @@
 package com.curso.projetospring.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.annotations.TargetEmbeddable;
 
@@ -23,6 +24,7 @@ public class Pagamento implements Serializable {
     //Associação de classe
     @OneToOne
     @MapsId
+    @JsonIgnore
     private Pedido pedido;
 
     public Pagamento() {}

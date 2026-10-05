@@ -37,6 +37,8 @@ public class Pedido implements Serializable {
     @OneToOne(mappedBy = "pedido", cascade = CascadeType.ALL)
     private Pagamento pagamento;
 
+    private Double total;
+
     public  Pedido() {
     }
 
@@ -90,6 +92,14 @@ public class Pedido implements Serializable {
     public void setUsuarioCliente(Usuario usuarioCliente) {
 
         this.usuarioCliente = usuarioCliente;
+    }
+
+    public Double getTotal() {
+        double soma = 0.0;
+        for (ItemPedido item : itens) {
+            soma += item.getQuantidade();
+        }
+        return soma;
     }
 
     public Set<ItemPedido> getItens() {

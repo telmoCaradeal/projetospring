@@ -17,6 +17,7 @@ public class ItemPedido implements Serializable {
     private ItemPedidoPk id = new ItemPedidoPk();
     private Integer quantidade;
     private Double preco;
+    private Double subTotal;
 
     public ItemPedido() {}
 
@@ -59,6 +60,10 @@ public class ItemPedido implements Serializable {
 
     public void setPreco(Double preco) {
         this.preco = preco;
+    }
+
+    public  Double getSubTotal() {
+        return preco * quantidade;
     }
 
     @Override
